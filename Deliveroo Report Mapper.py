@@ -36,7 +36,7 @@ COLUMN_MAP = {
     "What is your age (in years and months)?": "What is your age?",
     "What is the name of the restaurant/shop you made the purchase from?": ["What is the name of the restaurant/shop you made the purchase from?", "What is the name of the shop you made the purchase from?"],
     "Please state the 11-digit Order Number (this can be found on your order receipt):": "Please enter the  11-digit order number:",
-    "Please state the name of the product you purchased (brand and size):": ["Please give details of the alcohol that you purchased:", "Please give details of the cigarettes that you purchased:", "Please give details of the e-cigarette that you purchased:", "Please give details of the CBD product that you purchased:"],
+    "Please state the name of the product you purchased (brand and size):": ["Please give details of the alcohol that you purchased:", "Please give details of the cigarettes that you purchased:", "Please give details of the e-cigarette that you purchased:", "Please give details of the CBD product that you purchased:", "Please give details of the age-restricted product you purchased:"],
     "Did the rider ask for your ID?": "Did the rider ask for your ID?",
     "Did the rider check your ID?": "Did the rider check your ID?",
     "Did the rider ask for your date of birth?": "Did the rider ask for your date of birth?",
