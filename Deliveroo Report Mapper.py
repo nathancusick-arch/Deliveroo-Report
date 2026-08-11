@@ -34,7 +34,7 @@ COLUMN_MAP = {
     "Extra Site 4": None,
     "Extra Site 5": None,
     "What is your age (in years and months)?": "What is your age?",
-    "What is the name of the restaurant/shop you made the purchase from?": ["What is the name of the restaurant/shop you made the purchase from?", "What is the name of the shop you made the purchase from?"],
+    "What is the name of the restaurant/shop you made the purchase from?": "__RETAILER_NAME__",
     "Please state the 11-digit Order Number (this can be found on your order receipt):": "Please enter the  11-digit order number:",
     "Please state the name of the product you purchased (brand and size):": ["Please give details of the alcohol that you purchased:", "Please give details of the cigarettes that you purchased:", "Please give details of the e-cigarette that you purchased:", "Please give details of the CBD product that you purchased:", "Please give details of the age-restricted product you purchased:"],
     "Did the rider ask for your ID?": "Did the rider ask for your ID?",
@@ -71,6 +71,28 @@ st.write("""
           4. Copy and paste over values etc!!!
           5. Done.
           """)
+
+RETAILER_QUESTION = "Which retailer did you place your order with?"
+SHOP_NAME_QUESTIONS = [
+    "What is the name of the restaurant/shop you made the purchase from?",
+    "What is the name of the shop you made the purchase from?"
+]
+
+def map_retailer_name(row):
+    retailer = str(row.get(RETAILER_QUESTION, "")).strip()
+
+    # The free-text shop question is only answered when "Other" is selected.
+    # Older exports do not contain the retailer question, so they continue to
+    # fall back to the original shop-name question.
+    if retailer and retailer.casefold() != "other":
+        return retailer
+
+    for col in SHOP_NAME_QUESTIONS:
+        value = str(row.get(col, "")).strip()
+        if value:
+            return value
+
+    return ""
 
 uploaded = st.file_uploader("Upload audits_basic_data_export.csv", type=["csv"])
 
@@ -121,6 +143,8 @@ if uploaded:
             return ""
         if mapping == "__MONTH__":
             return row.get("__MONTH__", "")
+        if mapping == "__RETAILER_NAME__":
+            return map_retailer_name(row)
         if isinstance(mapping, list):
             for col in mapping:
                 if col in row:
